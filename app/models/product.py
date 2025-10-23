@@ -1,7 +1,10 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Float
+from app.db.session import Base
 
-class ProductModel(BaseModel):
-    id: int
-    name: str
-    description: str | None = None
-    price: float
+class Product(Base):
+    __tablename__ = "products"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    description = Column(String, nullable=True)
+    price = Column(Float, nullable=False)

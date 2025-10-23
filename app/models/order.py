@@ -1,8 +1,12 @@
-from pydantic import BaseModel
-from typing import List
+from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+from app.db.session import Base
 
-class OrderModel(BaseModel):
-    id: int
-    user_id: int
-    product_ids: List[int]
-    total_price: float
+class Order(Base):
+    __tablename__ = "orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    total_price = Column(Float, nullable=False)
+
+    user = relationship("User")

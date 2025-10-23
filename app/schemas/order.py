@@ -1,8 +1,14 @@
 from pydantic import BaseModel
-from typing import List
 
-class Order(BaseModel):
-    id: int
+class OrderBase(BaseModel):
     user_id: int
-    product_ids: List[int]
     total_price: float
+
+class OrderCreate(OrderBase):
+    pass
+
+class Order(OrderBase):
+    id: int
+
+    class Config:
+        orm_mode = True
